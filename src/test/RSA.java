@@ -1,4 +1,4 @@
-package Crypto;
+package test;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -79,6 +79,46 @@ class CipherUtil {
 
 }
 
+class Encrypto {
+	private String base64PublicKey;
+	private String plainText;
+	
+	public Encrypto(String base64PublicKey, String plainText) {
+		// TODO Auto-generated constructor stub
+		this.base64PublicKey = base64PublicKey;
+		this.plainText = plainText;
+	}
+	
+	public String encrypto() throws Exception {
+		PublicKey puKey = CipherUtil.getPublicKeyFromBase64String(this.base64PublicKey);
+		System.out.println("평문  : " + this.plainText);
+		
+		String encrypText = CipherUtil.encryptRSA(plainText, puKey);
+		System.out.println("암호문 : " + encrypText);
+		
+		return encrypText;
+	}
+}
+
+class Decrypto {
+	private String base64PrivateKey;
+	private String encrypText;
+	
+	public Decrypto(String base64PrivateKey, String encrypText) {
+		// TODO Auto-generated constructor stub
+		this.base64PrivateKey = base64PrivateKey;
+		this.encrypText = encrypText;
+	}
+	
+	public void decrypto() throws Exception {
+		PrivateKey prKey = CipherUtil.getPrivateKeyFromBase64String(this.base64PrivateKey);
+		System.out.println("암호문 : " + this.encrypText);
+		
+		String decrypText = CipherUtil.decryptRSA(encrypText, prKey);
+		System.out.println("평문  : " + decrypText);
+	}
+}
+
 public class RSA {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -86,40 +126,18 @@ public class RSA {
 		PublicKey publicKey = keyPair.getPublic();
 		PrivateKey privateKey = keyPair.getPrivate();
 
-		String plainText = "암호화 할 문자열 입니다.";
-
-		//암호화
-		String encrypted = CipherUtil.encryptRSA(plainText, publicKey);
-		System.out.println("Encrypted : " + encrypted);
-		
-		//복호화
-		String decrypted = CipherUtil.decryptRSA(encrypted, privateKey);
-		System.out.println("Decrypted : " + decrypted);
-
 		//공개키를 Base64로 인코딩한 문자열 생성
 		byte[] bytePublicKey = publicKey.getEncoded(); 
-		String base64PublicKey = Base64.getEncoder().encodeToString(bytePublicKey); 
-		System.out.println("Base64 Public Key : " + base64PublicKey);
-
-		//개인키 Base64로 인코딩한 문자열 생성
 		byte[] bytePrivateKey = privateKey.getEncoded(); 
+		String base64PublicKey = Base64.getEncoder().encodeToString(bytePublicKey); 
 		String base64PrivateKey = Base64.getEncoder().encodeToString(bytePrivateKey);
-		System.out.println("Base64 Private Key : " + base64PrivateKey);
 		
-		//문자열로부트 개인키와 공개키를 얻는다
-		PrivateKey prKey = CipherUtil.getPrivateKeyFromBase64String(base64PrivateKey); 
-		PublicKey puKey = CipherUtil.getPublicKeyFromBase64String(base64PublicKey);
+		String plainText = "안녕하세요 만나서 반갑습니다.\n 저는 최종현 입니다~";
 		
-		//공개키로 암호화
-		String encrypted2 = CipherUtil.encryptRSA(plainText, puKey); 
-		System.out.println("encrypted : " + encrypted2);
-		
-		//복호화
-		String decrypted2 = CipherUtil.decryptRSA(encrypted, prKey); 
-		System.out.println("decrypted : " + decrypted2);
-
-
-
-
+		System.out.println("Encrypto--");
+		String encrypText = new Encrypto(base64PublicKey, plainText).encrypto();
+		System.out.println();
+		System.out.println("Decrypto--");
+		new Decrypto(base64PrivateKey, encrypText).decrypto();;
 	}
 }

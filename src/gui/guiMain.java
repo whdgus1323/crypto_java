@@ -25,9 +25,8 @@ public class guiMain extends JFrame {
 	public JTabbedPane createTabbedPane() {
 		JTabbedPane pane = new JTabbedPane();
 		
-		pane.addTab("저장소", new cryptoPanel().getPanel());
-		pane.addTab("암호화", new cryptoPanel().getPanel());
-		pane.addTab("복호화", new encryptoPanel().getPanel());
+		pane.addTab("암호화", new encryptoPanel().getPanel());
+		pane.addTab("복호화", new dencryptoPanel().getPanel());
 		
 		return pane;
 	}

@@ -22,17 +22,18 @@ public class DbConn {
 			Class.forName("org.mariadb.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Driver error!");
 		}
 		try {
-			String jdbcUrl = "jdbc:mariadb://localhost:3307/dynamic01";
+			String jdbcUrl = "jdbc:mariadb://localhost:3306/test";
 			String userID = "root";
 			String userPass = "dual1014";
 			DriverManager.getConnection(jdbcUrl, userID, userPass);
 			System.out.println("Success!");
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("Fail!");
 		}
 		return null;
