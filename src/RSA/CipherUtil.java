@@ -20,7 +20,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 class CipherUtil {
-	//1024 비트 RSA 키쌍을 생성
+
 	public static KeyPair getRSAKeyPari() throws NoSuchAlgorithmException {
 		SecureRandom secureRandom = new SecureRandom();
 		KeyPairGenerator gen;
@@ -30,7 +30,6 @@ class CipherUtil {
 		return keyPair;
 	}
 	
-	//Public Key로 RSA 암호화 수행
 	public static String encryptRSA(String plainText, PublicKey publicKey)
 			throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException,
 			BadPaddingException, IllegalBlockSizeException {
@@ -41,7 +40,6 @@ class CipherUtil {
 		return encrypted;
 	}
 
-	//Private Key로 RSA 복호화 수행
 	public static String decryptRSA(String encrypted, PrivateKey privateKey) 
 			throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, 
 			BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException { 
@@ -53,9 +51,6 @@ class CipherUtil {
 		return decrypted;
 	}
 
-
-
-	//Base64 인코딩된 개인키 문자열로부터 PrivateKey 객체 얻는다.
 	public static PrivateKey getPrivateKeyFromBase64String(final String keyString) 
 			throws NoSuchAlgorithmException, InvalidKeySpecException { 
 		final String privateKeyString = 
@@ -66,7 +61,6 @@ class CipherUtil {
 		return keyFactory.generatePrivate(keySpecPKCS8); 
 	} 
 	
-	//Base64로 인코딩된 공개키 문자열로부터 PublicKey 객체 얻는다.
 	public static PublicKey getPublicKeyFromBase64String(final String keyString) 
 			throws NoSuchAlgorithmException, InvalidKeySpecException { 
 		final String publicKeyString = 

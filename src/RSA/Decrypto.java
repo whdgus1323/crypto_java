@@ -12,11 +12,9 @@ public class Decrypto {
 		this.encrypText = encrypText;
 	}
 	
-	public void decrypto() throws Exception {
+	public String decrypto() throws Exception {
 		PrivateKey prKey = CipherUtil.getPrivateKeyFromBase64String(this.base64PrivateKey);
-		System.out.println("암호문 : " + this.encrypText);
-		
 		String decrypText = CipherUtil.decryptRSA(encrypText, prKey);
-		System.out.println("평문  : " + decrypText);
+		return decrypText;
 	}
 }

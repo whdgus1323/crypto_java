@@ -14,11 +14,7 @@ public class Encrypto {
 	
 	public String encrypto() throws Exception {
 		PublicKey puKey = CipherUtil.getPublicKeyFromBase64String(this.base64PublicKey);
-		System.out.println("평문  : " + this.plainText);
-		
 		String encrypText = CipherUtil.encryptRSA(plainText, puKey);
-		System.out.println("암호문 : " + encrypText);
-		
 		return encrypText;
 	}
 }
